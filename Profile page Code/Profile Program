@@ -1,45 +1,32 @@
-package com.example.firstapp
-
-import androidx.compose.material3.Button
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.foundation.layout.*
-// import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-// import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.material3.*
-import androidx.compose.ui.graphics.Color
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.height
-
+package com.example.firstapp2
+import androidx.compose.material3.Text
 import android.os.Bundle
-// import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-// import androidx.compose.ui.tooling.preview.Preview
-// import com.example.firstapp.ui.theme.FirstAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ProfileScreen()
+            ProfileScreen2()
         }
     }
 }
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen2() {
 
     Column(
         modifier = Modifier
@@ -73,63 +60,41 @@ fun ProfileScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Email
-        ProfileInfoRow(
-            icon = Icons.Default.Email,
-            text = "divyas@gmail.com"
-        )
+        // --- UPGRADED SECTION STARTS HERE ---
+        // This single line replaces all your previous ProfileInfoRow calls
+        ProfileDetailsSection()
+        // --- UPGRADED SECTION ENDS HERE ---
 
-        // Phone
-        ProfileInfoRow(
-            icon = Icons.Default.Phone,
-            text = "8876540324"
-        )
+        Spacer(modifier = Modifier.height(18.dp))
 
-        // Education
-        ProfileInfoRow(
-            icon = Icons.Default.School,
-            text = "Bachelors of Technology (CSE)"
-        )
-
-        // Age
-        ProfileInfoRow(
-            icon = Icons.Default.DateRange,
-            text = "20 Years"
-        )
-
-        ProfileInfoRow(
-            icon = Icons.Default.LocationOn,
-            text = "Bhubaneswar, Odisha"
-        )
-
-        // Skills
-        ProfileInfoRow(
-            icon = Icons.Default.AccountCircle,
-            text = "Python,C,Java"
-        )
-
-        // Interests / Hobbies
-        ProfileInfoRow(
-            icon = Icons.Default.Favorite,
-            text = "Drawing Painting"
-        )
+        Button(
+            onClick = { },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Gray
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Default.Person,
+                contentDescription = "Contact Me"
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Contact Me")
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
             onClick = { },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Blue
+                containerColor = Color.Green
             )
         ) {
             Icon(
                 imageVector = Icons.Default.Edit,
-                contentDescription = "Edit"
+                contentDescription = "Edit Details"
             )
-
             Spacer(modifier = Modifier.width(8.dp))
-
-            Text("Edit Profile")
+            Text("Edit Details")
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -140,41 +105,74 @@ fun ProfileScreen() {
                 containerColor = Color.Red
             )
         ) {
+            // Changed this to the standard Exit icon for you
             Icon(
-                imageVector = Icons.Default.Snowshoeing,
+                imageVector = Icons.Default.ExitToApp,
                 contentDescription = "Logout"
             )
-
             Spacer(modifier = Modifier.width(8.dp))
+            Text("Sign Out")
+        }
+    }
+}
 
-            Text("Logout")
+// --- NEW COMPOSABLES BELOW ---
+
+@Composable
+fun ProfileDetailsSection() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp, vertical = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            ProfileDetailRow(icon = Icons.Default.Email, text = "divyas@gmail.com")
+            HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f), thickness = 1.dp)
+
+            ProfileDetailRow(icon = Icons.Default.Phone, text = "8876540324")
+            HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f), thickness = 1.dp)
+
+            ProfileDetailRow(icon = Icons.Default.School, text = "Bachelors of Technology (CSE)")
+            HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f), thickness = 1.dp)
+
+            ProfileDetailRow(icon = Icons.Default.DateRange, text = "20 Years")
+            HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f), thickness = 1.dp)
+
+            ProfileDetailRow(icon = Icons.Default.LocationOn, text = "Bhubaneswar, Odisha")
+            HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f), thickness = 1.dp)
+
+            // Changed icon to Build for skills
+            ProfileDetailRow(icon = Icons.Default.Build, text = "Python, C, Java")
+            HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f), thickness = 1.dp)
+
+            ProfileDetailRow(icon = Icons.Default.Favorite, text = "Drawing, Painting")
         }
     }
 }
 
 @Composable
-fun ProfileInfoRow(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    text: String
-) {
+fun ProfileDetailRow(icon: ImageVector, text: String) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
     ) {
-
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = Color.DarkGray
+            tint = Color(0xFF6200EE), // Added a purple primary tint to make it pop
+            modifier = Modifier.size(24.dp)
         )
-
-        Spacer(modifier = Modifier.width(12.dp))
-
+        Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = text,
-            fontSize = 16.sp
+            fontSize = 14.sp,
+            color = Color.DarkGray
         )
     }
 }
