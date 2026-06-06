@@ -1,0 +1,180 @@
+package com.example.firstapp
+
+import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.foundation.layout.*
+// import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+// import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.material3.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.height
+
+import android.os.Bundle
+// import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+// import androidx.compose.ui.tooling.preview.Preview
+// import com.example.firstapp.ui.theme.FirstAppTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            ProfileScreen()
+        }
+    }
+}
+
+@Composable
+fun ProfileScreen() {
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Profile Icon
+        Icon(
+            imageVector = Icons.Default.AccountCircle,
+            contentDescription = "Profile",
+            modifier = Modifier.size(100.dp),
+            tint = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Divya Samarpan Das",
+            fontSize = 24.sp
+        )
+
+        Text(
+            text = "App Developer",
+            fontSize = 16.sp,
+            color = Color.Gray
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Email
+        ProfileInfoRow(
+            icon = Icons.Default.Email,
+            text = "divyas@gmail.com"
+        )
+
+        // Phone
+        ProfileInfoRow(
+            icon = Icons.Default.Phone,
+            text = "8876540324"
+        )
+
+        // Education
+        ProfileInfoRow(
+            icon = Icons.Default.School,
+            text = "Bachelors of Technology (CSE)"
+        )
+
+        // Age
+        ProfileInfoRow(
+            icon = Icons.Default.DateRange,
+            text = "20 Years"
+        )
+
+        ProfileInfoRow(
+            icon = Icons.Default.LocationOn,
+            text = "Bhubaneswar, Odisha"
+        )
+
+        // Skills
+        ProfileInfoRow(
+            icon = Icons.Default.AccountCircle,
+            text = "Python,C,Java"
+        )
+
+        // Interests / Hobbies
+        ProfileInfoRow(
+            icon = Icons.Default.Favorite,
+            text = "Drawing Painting"
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Button(
+            onClick = { },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Blue
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Default.Edit,
+                contentDescription = "Edit"
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Text("Edit Profile")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Button(
+            onClick = { },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Red
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Default.Snowshoeing,
+                contentDescription = "Logout"
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Text("Logout")
+        }
+    }
+}
+
+@Composable
+fun ProfileInfoRow(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    text: String
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = Color.DarkGray
+        )
+
+        Spacer(modifier = Modifier.width(12.dp))
+
+        Text(
+            text = text,
+            fontSize = 16.sp
+        )
+    }
+}
