@@ -1,0 +1,39 @@
+package com.example.firstapp
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.*
+import androidx.compose.ui.Modifier
+import com.example.firstapp.screens.ProductScreen
+import com.example.firstapp.ui.theme.FirstAppTheme
+
+/**
+ * A separate Activity to run the app using the MVVM model.
+ */
+class MvvmMainActivity : ComponentActivity() {
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            FirstAppTheme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        CenterAlignedTopAppBar(
+                            title = { Text("Fake Store - MVVM Mode") }
+                        )
+                    }
+                ) { innerPadding ->
+                    // Uses the ProductScreen which is powered by ProductViewModel
+                    ProductScreen(modifier = Modifier.padding(innerPadding))
+                }
+            }
+        }
+    }
+}
