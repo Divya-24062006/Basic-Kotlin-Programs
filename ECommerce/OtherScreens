@@ -1,0 +1,112 @@
+package com.example.firstapp.ui
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AllCategoriesScreen(onBackClick: () -> Unit) {
+    val categories = listOf(
+        Category("Shoes", "https://img.icons8.com/color/96/sneakers.png"),
+        Category("Beauty", "https://img.icons8.com/color/96/lipstick.png"),
+        Category("Women", "https://img.icons8.com/color/96/dress.png"),
+        Category("Men", "https://img.icons8.com/color/96/t-shirt.png"),
+        Category("Kids", "https://img.icons8.com/color/96/teddy-bear.png"),
+        Category("Bags", "https://img.icons8.com/color/96/handbag.png"),
+        Category("Watch", "https://img.icons8.com/color/96/watch.png"),
+        Category("Sports", "https://img.icons8.com/color/96/trophy.png")
+    )
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("All Categories", fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                }
+            )
+        }
+    ) { padding ->
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            modifier = Modifier.padding(padding).fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            items(categories) { category ->
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Box(
+                        modifier = Modifier
+                            .size(80.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.surfaceVariant),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        AsyncImage(model = category.icon, contentDescription = null, modifier = Modifier.size(40.dp))
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(category.name, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AllProductsScreen(onProductClick: (String) -> Unit, onBackClick: () -> Unit) {
+    val products = listOf(
+        Product("1", "Men's Harrington Jacket", "$148.00", "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png"),
+        Product("2", "Maxi Circular Dress", "$120.00", "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_t.png"),
+        Product("3", "Casual Premium Slim", "$22.30", "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png"),
+        Product("4", "Cotton Jacket", "$55.99", "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png"),
+        Product("5", "Solid Gold Petite Micropave", "$168.00", "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_t.png"),
+        Product("6", "White Gold Plated Princess", "$9.99", "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_t.png")
+    )
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("All Products", fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                }
+            )
+        }
+    ) { padding ->
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier.padding(padding).fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(products) { product ->
+                ProductCard(product) { onProductClick(product.id) }
+            }
+        }
+    }
+}
